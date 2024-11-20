@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async API POST with Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: red;
+            
+        }
+        button {
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Display in Table</h1>
+
+<button onclick="myfun()">Get Data</button>
+
+<!-- Table to display data -->
+<table id="posts-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+const url = "https://jsonplaceholder.typicode.com/posts";
+
+// Async function to fetch data from the API and display it in a table format
+async function myfun() {
+    // Fetch data from the API
+    const res = await fetch(url);
+    const posts = await res.json();
+
+    console.log(posts);
+
+    // Get the table body element
+    const tableBody = document.querySelector("#posts-table tbody");
+
+    // Clear any existing rows
+    tableBody.innerHTML = '';
+
+    // Iterate over the fetched posts and create rows for the table
+    posts.forEach((post) => {
+        // Create a new row
+        const row = document.createElement("tr");
+
+        // Create table cells for ID, Title, and Body
+        const idCell = document.createElement("td");
+        idCell.textContent = post.id;
+
+        const titleCell = document.createElement("td");
+        titleCell.textContent = post.title;
+
+        const bodyCell = document.createElement("td");
+        bodyCell.textContent = post.body;
+
+        // Append the cells to the row
+        row.appendChild(idCell);
+        row.appendChild(titleCell);
+        row.appendChild(bodyCell);
+
+        // Append the row to the table body
+        tableBody.appendChild(row);
+    });
+}
+</script>
+
+</body>
+</html>
