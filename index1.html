@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async API POST with Table</title>
+    <!-- <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style> -->
+</head>
+<body>
+<ul id="post-list"></ul>
+<button onclick="myfun()">Get data</button>
+<Script>
+const url = "https://jsonplaceholder.typicode.com/posts";
+
+async function myfun() {
+const res= await fetch("https://jsonplaceholder.typicode.com/posts");
+const posts = await res.json();
+
+console.log(posts);
+const ulEle = document.getElementById("post-list");
+
+    posts.forEach((post) => {
+    const liEle = document.createElement("li");
+    liEle.textContent = post.title;
+    liEle.style.color = "red";
+    ulEle.appendChild(liEle);
+});
+}
+
+</Script>
+</body>
+</html>
